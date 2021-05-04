@@ -18,6 +18,8 @@ runs:
       run: echo "::set-output name=random-id::$(echo $RANDOM)"
       shell: bash
     - run: echo $AWS_DEFAULT_REGION
+      name: this
       shell: bash
     - run: echo ${GITHUB_REPOSITORY} | sed -e 's|.*/||'
+      name: that
       shell: bash
