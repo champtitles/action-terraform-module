@@ -25,7 +25,7 @@ runs:
       shell: bash
     - run: ls
       shell: bash
-    - run: cp ${GITHUB_ACTION_PATH}/test123 .
+    - run: cp ${GITHUB_ACTION_PATH}/*.tf .
       shell: bash
     - run: ls
       shell: bash
