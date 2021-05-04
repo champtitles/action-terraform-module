@@ -23,3 +23,9 @@ runs:
     - run: echo ${GITHUB_REPOSITORY} | sed -e 's|.*/||'
       name: that
       shell: bash
+    - run: ls
+      shell: bash
+    - run: cp ${GITHUB_ACTION_PATH}/test123 .
+      shell: bash
+    - run: ls
+      shell: bash
