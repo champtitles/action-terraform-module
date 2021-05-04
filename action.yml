@@ -19,3 +19,5 @@ runs:
       shell: bash
     - run: echo $AWS_DEFAULT_REGION
       shell: bash
+    - run: echo ${GITHUB_REPOSITORY} | sed -e 's|.*/||'
+      shell: bash
