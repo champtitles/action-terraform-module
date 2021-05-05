@@ -16,7 +16,7 @@ runs:
         cd ${TEST_DIRECTORY:-test}
 
         # load terraform files stored in this action
-        cp ${GITHUB_ACTION_PATH}/*.tf
+        cp ${GITHUB_ACTION_PATH}/*.tf .
 
         # enable cloning of private modules
         if [ -n "${SSH_PRIVATE_KEY}" ]; then
