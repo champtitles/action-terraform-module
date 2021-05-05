@@ -1,4 +1,4 @@
-name: module
+name: terraform-module
 description: https://github.com/champtitles/action-terraform-module
 runs:
   using: "composite"
