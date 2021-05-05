@@ -1,14 +1,23 @@
-on: [push]
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  push:
+
+env:
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  TF_STATE_BUCKET: ${{ secrets.TF_STATE_BUCKET }}
 
 jobs:
-  hello_world_job:
+  main:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-    - uses: actions/checkout@v2
-    - id: foo
-      uses: champtitles/action-terraform-module@main
-      with:
-        who-to-greet: 'Mona the Octocat'
-    - run: echo random-number ${{ steps.foo.outputs.random-number }}
-      shell: bash
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1.2.1
+        with:
+          terraform_version: 0.15.1
+      - uses: champtitles/action-terraform-module@main
