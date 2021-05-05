@@ -27,7 +27,9 @@ runs:
         fi
 
         # target EKS cluster
-        aws eks update-kubeconfig --name ${EKS_CLUSTER}
+        if [ -n "${EKS_CLUSTER}" ]; then
+          aws eks update-kubeconfig --name ${EKS_CLUSTER}
+        fi
 
         # execute terraform commands
         terraform init -backend-config key=${TF_VAR_git}/${TF_VAR_branch} -backend-config bucket=${TF_STATE_BUCKET}
