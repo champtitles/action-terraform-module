@@ -36,5 +36,4 @@ runs:
         terraform apply -auto-approve
         terraform plan -detailed-exitcode
         terraform destroy -auto-approve
-        terraform plan -detailed-exitcode -destroy
         cd .. && terraform fmt -recursive -check
