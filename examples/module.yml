@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
 
-concurrency: ephemeral
+concurrency: this
 
 env:
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
