@@ -3,7 +3,19 @@ description: https://github.com/champtitles/action-terraform-module
 runs:
   using: "composite"
   steps:
-    - shell: bash
+    - name: Set up Go
+      uses: actions/setup-go@331ce1d993939866bb63c32c6cbbfd48fa76fc57
+      with:
+        go-version: 1.16
+        
+    - name: Download Go depedencies
+      run: |
+        # module test code is located in a specific directory
+        cd ${TEST_DIRECTORY:-test/src}
+        go mod download
+
+    - name: Execute Terratest
+      shell: bash
       run: |
         # global defaults for terraform automation
         export TF_INPUT=${TF_INPUT:-false}
@@ -12,7 +24,7 @@ runs:
         export TF_VAR_git=$(echo ${GITHUB_REPOSITORY} | sed -e 's|.*/||')
 
         # module test code is located in a specific directory
-        cd ${TEST_DIRECTORY:-test}
+        cd ${TEST_DIRECTORY:-test/src}
 
         # enable cloning of private modules
         if [ -n "${SSH_PRIVATE_KEY}" ]; then
@@ -22,9 +34,5 @@ runs:
           ssh-add - <<< "${SSH_PRIVATE_KEY}"
         fi
 
-        # execute terraform commands
-        terraform init -backend-config key=${TF_VAR_git}/${TF_VAR_branch} -backend-config bucket=${TF_STATE_BUCKET}
-        terraform apply -auto-approve
-        terraform plan -detailed-exitcode
-        terraform destroy -auto-approve
-        cd .. && terraform fmt -recursive -check
+        # execute terratest
+        go test -v -timeout 60m
