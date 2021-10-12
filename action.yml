@@ -3,22 +3,18 @@ description: https://github.com/champtitles/action-terraform-module
 runs:
   using: "composite"
   steps:
-    - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v1.2.1
-      with:
-        terraform_version: 0.15.5
-
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.16
- 
     - name: Execute Terratest
       shell: bash
       run: |
+        # global defaults for terraform automation
+        export TF_INPUT=${TF_INPUT:-false}
+        export TF_IN_AUTOMATION=${TF_IN_AUTOMATION:-true}
+        export TF_VAR_branch=$(git branch --show-current)
+        export TF_VAR_git=$(echo ${GITHUB_REPOSITORY} | sed -e 's|.*/||')
+        
         # module test code is located in a specific directory
-        cd test/src
-
+        cd ${TEST_DIRECTORY:-test/src}
+        
         # enable cloning of private modules
         if [ -n "${SSH_PRIVATE_KEY}" ]; then
           mkdir -p ~/.ssh
@@ -28,8 +24,7 @@ runs:
         fi
         
         # download dependencies
-        # go mod download
-        go get -v -t -d
-
+        go mod download
+        
         # execute terratest
         go test -v -timeout 90m
