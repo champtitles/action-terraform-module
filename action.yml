@@ -16,6 +16,8 @@ runs:
     - name: Execute Terratest
       shell: bash
       run: |
+        set -eo pipefail
+        
         # global defaults for terraform automation
         export TF_INPUT=${TF_INPUT:-false}
         export TF_IN_AUTOMATION=${TF_IN_AUTOMATION:-true}
