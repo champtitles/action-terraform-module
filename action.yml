@@ -14,7 +14,7 @@ runs:
         go-version: 1.16
  
     - name: Execute Terratest
-      shell: sh
+      shell: shell
       run: |
         # global defaults for terraform automation
         export TF_INPUT=${TF_INPUT:-false}
