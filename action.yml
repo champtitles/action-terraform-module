@@ -35,6 +35,7 @@ runs:
         
         # download dependencies
         go mod download
+        go install gotest.tools/gotestsum@1a9438079330f60c1301fdfacafbfac8763214a5 
 
         # execute terratest
-        go test -timeout 60m
+        gotestsum --format standard-verbose -- -v -timeout 50m -parallel 128
