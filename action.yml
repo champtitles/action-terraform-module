@@ -10,10 +10,10 @@ runs:
         export TF_IN_AUTOMATION=${TF_IN_AUTOMATION:-true}
         export TF_VAR_branch=$(git branch --show-current)
         export TF_VAR_git=$(echo ${GITHUB_REPOSITORY} | sed -e 's|.*/||')
-        
+
         # module test code is located in a specific directory
         cd ${TEST_DIRECTORY:-test/src}
-        
+
         # enable cloning of private modules
         if [ -n "${SSH_PRIVATE_KEY}" ]; then
           mkdir -p ~/.ssh
@@ -21,9 +21,9 @@ runs:
           eval $(ssh-agent)
           ssh-add - <<< "${SSH_PRIVATE_KEY}"
         fi
-        
+
         # download dependencies
         go mod download
-        
+
         # execute terratest
         go test -v -timeout 90m
