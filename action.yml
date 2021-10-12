@@ -24,8 +24,8 @@ runs:
       shell: bash
       run: |
         # global defaults for terraform automation
-        export TF_INPUT=${TF_INPUT:-false}
-        export TF_IN_AUTOMATION=${TF_IN_AUTOMATION:-true}
+        # export TF_INPUT=${TF_INPUT:-false}
+        # export TF_IN_AUTOMATION=${TF_IN_AUTOMATION:-true}
         export TF_VAR_branch=$(git branch --show-current)
         export TF_VAR_git=$(echo ${GITHUB_REPOSITORY} | sed -e 's|.*/||')
 
