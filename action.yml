@@ -3,8 +3,7 @@ description: https://github.com/champtitles/action-terraform-module
 runs:
   using: "composite"
   steps:
-    - name: Execute Terratest
-      shell: bash
+    - shell: bash
       run: |
         # global defaults for terraform automation
         export TF_INPUT=${TF_INPUT:-false}
