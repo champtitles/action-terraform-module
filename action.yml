@@ -17,7 +17,7 @@ runs:
       shell: sh
       run: |
         # module test code is located in a specific directory
-        cd ${TEST_DIRECTORY:-test/src}
+        cd test/src
 
         # enable cloning of private modules
         if [ -n "${SSH_PRIVATE_KEY}" ]; then
