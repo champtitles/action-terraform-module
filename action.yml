@@ -1,5 +1,10 @@
 name: terraform-module
 description: https://github.com/champtitles/action-terraform-module
+inputs:
+  test_file:
+    description: 'Test file to run'
+    required: false
+    default: '.'
 runs:
   using: "composite"
   steps:
@@ -26,4 +31,4 @@ runs:
         go mod download
 
         # execute terratest
-        go test -v -timeout 90m
+        go test -v -timeout 90m ${{ inputs.test_file }}
